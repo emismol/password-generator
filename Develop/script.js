@@ -1,5 +1,5 @@
 // Assignment code here
-var generate = window.prompt('You need a new password!');
+//var generate = window.prompt('You need a new password!');
 var passwordlen = window.prompt("How long should your password be?");
 var upper = window.prompt("Do you want uppercase values? Y/N");
 var lower = window.prompt("Do you want lowercase values? Y/N");
@@ -8,11 +8,27 @@ var specialval = window.prompt("Do you want special values? Y/N");
 // lowercase, uppercase, numeric, and/or special characters
 
 function generatePassword () {
-var useSymbols = true;
-var useNumbers = true;
-var useLower = true;
-var useUpper = true;
-var passwordLength = 8;
+var useSymbols = false;
+if(specialval ==='Y'){
+  useSymbols = true;
+}
+
+var useNumbers = false;
+if(numval ==='Y'){
+  useNumbers = true;
+}
+
+var useLower = false;
+if(lower ==='Y'){
+  useLower = true;
+}
+
+var useUpper = false;
+if(upper ==='Y'){
+  useUpper = true;
+}
+
+var passwordLength = passwordlen;
 
 var numbers = ["0","1","2","3","4","5","6","7","8","9"]
 var symbols = ["&","!","$"]
@@ -22,23 +38,26 @@ var lower = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q"
 var bucket = []
 var password = ""
 if (useNumbers) {
-  bucket.push(numbers);
+  bucket.push(...numbers);
 }
 if (useSymbols){
-  bucket.push (symbols);
+  bucket.push(...symbols);
 }
 if (useLower){
-  bucket.push (lower);
+  bucket.push(...lower);
 }
 if (useUpper){
-  bucket.push(upper);
+  bucket.push(...upper);
 }
+console.log(bucket);
 
 for (var x=0; x < passwordLength; x++) {
-  var randNumber = getRandom(0, bucket.length)
+  var randNumber = getRandomInt(bucket.length);
+  var nextCharacter = bucket[randNumber];
+  password = password + nextCharacter;
 }
 
-password = password + nextCharacter;
+
 
 /*
 
@@ -51,25 +70,11 @@ array for each prompt
 array for bucket
 if yes append string to bucket
 
-math.random (26)
-
-string myString = "";
-for (var i=0;i<100;i++) {
-    myRandomLetter = generateSingleLetter();
-    myString = myString + myRandomLetter();
+*/
+return password;
 }
-
-
-charAt()
-
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
-}
-var sentence = 'abcdefghijklmnopqrstuvwxyz + ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-var index = (getRandomInt(52));
-
-*/
 }
 
 // Get references to the #generate element
@@ -80,12 +85,14 @@ function writePassword() {
   var password = generatePassword(); 
   var minNumberofChars = 8;
   var maxNumberofChars = 128;
-    if(writePassword.length < minNumberofChars || writePassword.length > maxNumberofChars){
-    return "error";}
+  console.log(password);
+    if(password.length < minNumberofChars || password.length > maxNumberofChars){
+    password = "error";
+  }
     
 
   var passwordText = document.querySelector("#password");
-
+ 
   passwordText.value = password;
 
 }
