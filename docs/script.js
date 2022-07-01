@@ -6,7 +6,18 @@ var lower = window.prompt("Do you want lowercase values? Y/N");
 var numval = window.prompt("Do you want numeric values? Y/N");
 var specialval = window.prompt("Do you want special values? Y/N");
 // lowercase, uppercase, numeric, and/or special characters
+/*
 
+1)create a bucket of possible characters
+2) random number function (returnes between 0 and bucket.length-1
+3) loop for password length # of times
+4)append random char from bucket 
+
+array for each prompt
+array for bucket
+if yes append string to bucket
+
+*/
 function generatePassword () {
 var useSymbols = false;
 if(specialval ==='Y'){
@@ -59,18 +70,7 @@ for (var x=0; x < passwordLength; x++) {
 
 
 
-/*
 
-1)create a bucket of possible characters
-2) random number function (returnes between 0 and bucket.length-1
-3) loop for password length # of times
-4)append random char from bucket 
-
-array for each prompt
-array for bucket
-if yes append string to bucket
-
-*/
 return password;
 }
 function getRandomInt(max) {
