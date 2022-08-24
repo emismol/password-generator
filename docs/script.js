@@ -1,10 +1,6 @@
 // Assignment code here
 //var generate = window.prompt('You need a new password!');
-var passwordlen = window.prompt("How long should your password be?");
-var upper = window.prompt("Do you want uppercase values? Y/N");
-var lower = window.prompt("Do you want lowercase values? Y/N");
-var numval = window.prompt("Do you want numeric values? Y/N");
-var specialval = window.prompt("Do you want special values? Y/N");
+
 // lowercase, uppercase, numeric, and/or special characters
 /*
 
@@ -18,60 +14,126 @@ array for bucket
 if yes append string to bucket
 
 */
-function generatePassword () {
-var useSymbols = false;
-if(specialval ==='Y'){
-  useSymbols = true;
-}
+function generatePassword() {
+  var passwordlen = window.prompt("How long should your password be?");
+  if (passwordlen === null) {
+    return;
+  }
+  var minNumberofChars = 8;
+  var maxNumberofChars = 128;
 
-var useNumbers = false;
-if(numval ==='Y'){
-  useNumbers = true;
-}
+  if (passwordlen < minNumberofChars || passwordlen > maxNumberofChars) {
+    return;
+  }
 
-var useLower = false;
-if(lower ==='Y'){
-  useLower = true;
-}
+  var upper = window.prompt("Do you want uppercase values? Y/N");
+  var lower = window.prompt("Do you want lowercase values? Y/N");
+  var numval = window.prompt("Do you want numeric values? Y/N");
+  var specialval = window.prompt("Do you want special values? Y/N");
 
-var useUpper = false;
-if(upper ==='Y'){
-  useUpper = true;
-}
+  var useSymbols = false;
+  if (specialval === "Y") {
+    useSymbols = true;
+  }
 
-var passwordLength = passwordlen;
+  var useNumbers = false;
+  if (numval === "Y") {
+    useNumbers = true;
+  }
 
-var numbers = ["0","1","2","3","4","5","6","7","8","9"]
-var symbols = ["&","!","$"]
-var upper = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
-var lower = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+  var useLower = false;
+  if (lower === "Y") {
+    useLower = true;
+  }
 
-var bucket = []
-var password = ""
-if (useNumbers) {
-  bucket.push(...numbers);
-}
-if (useSymbols){
-  bucket.push(...symbols);
-}
-if (useLower){
-  bucket.push(...lower);
-}
-if (useUpper){
-  bucket.push(...upper);
-}
-console.log(bucket);
+  var useUpper = false;
+  if (upper === "Y") {
+    useUpper = true;
+  }
+  var passwordLength = passwordlen;
 
-for (var x=0; x < passwordLength; x++) {
-  var randNumber = getRandomInt(bucket.length);
-  var nextCharacter = bucket[randNumber];
-  password = password + nextCharacter;
-}
+  var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+  var symbols = ["&", "!", "$"];
+  var upper = [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z",
+  ];
+  var lower = [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "o",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "u",
+    "v",
+    "w",
+    "x",
+    "y",
+    "z",
+  ];
 
+  var bucket = [];
+  var password = "";
+  if (useNumbers) {
+    bucket.push(...numbers);
+  }
+  if (useSymbols) {
+    bucket.push(...symbols);
+  }
+  if (useLower) {
+    bucket.push(...lower);
+  }
+  if (useUpper) {
+    bucket.push(...upper);
+  }
+  console.log(bucket);
 
+  for (var x = 0; x < passwordLength; x++) {
+    var randNumber = getRandomInt(bucket.length);
+    var nextCharacter = bucket[randNumber];
+    password = password + nextCharacter;
+  }
 
-
-return password;
+  return password;
 }
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
@@ -82,19 +144,10 @@ var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword(); 
-  var minNumberofChars = 8;
-  var maxNumberofChars = 128;
-  console.log(password);
-    if(password.length < minNumberofChars || password.length > maxNumberofChars){
-    password = "error";
-  }
-    
-
+  var password = generatePassword();
   var passwordText = document.querySelector("#password");
- 
-  passwordText.value = password;
 
+  passwordText.value = password;
 }
 
 // Add event listener to generate button
