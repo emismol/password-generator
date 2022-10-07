@@ -15,45 +15,23 @@ if yes append string to bucket
 
 */
 function generatePassword() {
-  var passwordlen = window.prompt("How long should your password be?");
-  if (passwordlen === null) {
-    return;
-  }
-  var minNumberofChars = 8;
-  var maxNumberofChars = 128;
-
-  if (passwordlen < minNumberofChars || passwordlen > maxNumberofChars) {
+  var passwordLength = window.prompt("How long should your password be?");
+  if (passwordLength === null) {
     return;
   }
 
-  var upper = window.prompt("Do you want uppercase values? Y/N");
-  var lower = window.prompt("Do you want lowercase values? Y/N");
-  var numval = window.prompt("Do you want numeric values? Y/N");
-  var specialval = window.prompt("Do you want special values? Y/N");
-
-  var useSymbols = false;
-  if (specialval === "Y") {
-    useSymbols = true;
+  //if len is too low or high goes back up to generate password function
+  if (passwordLength < 8 || passwordLength > 128) {
+    return generatePassword();
   }
 
-  var useNumbers = false;
-  if (numval === "Y") {
-    useNumbers = true;
-  }
-
-  var useLower = false;
-  if (lower === "Y") {
-    useLower = true;
-  }
-
-  var useUpper = false;
-  if (upper === "Y") {
-    useUpper = true;
-  }
-  var passwordLength = passwordlen;
+  var useUpper = window.confirm("Do you want uppercase values? Y/N");
+  var useLower = window.confirm("Do you want lowercase values? Y/N");
+  var useNumbers = window.confirm("Do you want numeric values? Y/N");
+  var useSymbols = window.confirm("Do you want special values? Y/N");
 
   var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-  var symbols = ["&", "!", "$"];
+  var symbols = ["&", "!", "$", "%", "#", "@", "?", "*"];
   var upper = [
     "A",
     "B",
@@ -110,6 +88,11 @@ function generatePassword() {
     "y",
     "z",
   ];
+
+  if (!useNumbers && !useSymbols && !useLower && !useUpper) {
+    alert("please choose some criteria");
+    return;
+  }
 
   var bucket = [];
   var password = "";
